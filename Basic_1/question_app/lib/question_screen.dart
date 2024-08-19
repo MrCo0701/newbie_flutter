@@ -38,7 +38,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             Text(
               currentQuestion.text,
               style: GoogleFonts.eduVicWaNtBeginner(),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.center,  
             ),
             const SizedBox(height: 30),
             ...currentQuestion.shuffledAnswer.map((answer) => Answer_button(
