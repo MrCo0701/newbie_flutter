@@ -26,7 +26,7 @@ class _ExpensesState extends State<Expenses> {
   ];
 
   void _openExpenseOverlay() {
-    showBottomSheet(
+    showModalBottomSheet(
         context: context, builder: (ctx) => const NewExpense()
     );
   }
@@ -43,7 +43,7 @@ class _ExpensesState extends State<Expenses> {
               icon: const Icon(Icons.add))
         ],
         title: const Text('Flutter ExpenseTracker'),
-        backgroundColor: Colors.brown,
+        backgroundColor: Colors.brown
       ),
       body: Column(
         children: [
