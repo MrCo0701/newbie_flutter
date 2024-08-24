@@ -29,9 +29,29 @@ class _NewExpenseState extends State<NewExpense> {
   }
 
   void _submitExpenseData() {
-    if(_titleController.text.trim().isEmpty) {
-      // ! show error
+    final enterAmount = double.parse(_amountController
+        .text); // ? ==> change String to double ('duy hao' -> null / '1.12' -> 1.12)
+    final amountIsValid = enterAmount == null || enterAmount <= 0;
+    if (_titleController.text.trim().isEmpty ||
+        amountIsValid ||
+        _selectedDate == null) {
+      showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+                title: const Text('Invalid input'),
+                content: const Text(
+                    'Please make sure a valid title, amount, date and category was entered'),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                      },
+                      child: const Text('Okay'))
+                ],
+              ));
+      return;
     }
+    print('check');
   }
 
   @override
