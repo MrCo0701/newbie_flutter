@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:repetition_time/model/expense.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() => _NewExpenseState();
@@ -29,9 +31,15 @@ class _NewExpenseState extends State<NewExpense> {
   }
 
   void _submitExpenseData() {
-    final enterAmount = double.parse(_amountController
-        .text); // ? ==> change String to double ('duy hao' -> null / '1.12' -> 1.12)
-    final amountIsValid = enterAmount == null || enterAmount <= 0;
+    double enterAmount = 0.0;
+    bool amountIsValid = true;
+    try {
+      enterAmount = double.parse(_amountController
+          .text); // ? change String to double ('duy hao' -> error / '1.12' -> 1.12)
+      amountIsValid = enterAmount <= 0;
+    } catch (e) {
+      print(e);
+    }
     if (_titleController.text.trim().isEmpty ||
         amountIsValid ||
         _selectedDate == null) {
@@ -51,7 +59,14 @@ class _NewExpenseState extends State<NewExpense> {
               ));
       return;
     }
-    print('check');
+
+    widget.onAddExpense(Expense(
+        title: _titleController.text,
+        count: enterAmount.toDouble(),
+        date: _selectedDate!,
+        category: _category));
+
+    Navigator.pop(context);
   }
 
   @override
