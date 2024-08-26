@@ -13,7 +13,7 @@ class ExpensesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        // ==> dung .builder de toi uu du lieu khi dung voi 1 list nhieu phan tu (vi luc nao luot den thi no moi hien ra phan tu do )
+        // ?  ==> dung .builder de toi uu du lieu khi dung voi 1 list nhieu phan tu (vi luc nao luot den thi no moi hien ra phan tu do )
         itemCount: expenses.length,
         itemBuilder: (ctx, index) => Dismissible(
             onDismissed: (direction) {

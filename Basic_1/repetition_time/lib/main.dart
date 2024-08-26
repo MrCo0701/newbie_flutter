@@ -3,7 +3,7 @@ import 'package:repetition_time/widgets/expenses.dart';
 
 void main() {
   runApp(MaterialApp(
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData().copyWith(useMaterial3: true),
       debugShowCheckedModeBanner: false,
       home: Expenses()));
 }
