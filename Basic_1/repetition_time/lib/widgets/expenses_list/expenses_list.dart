@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:repetition_time/widgets/expenses_list/expenses_item.dart';
 
 import '../../model/expense.dart';
@@ -19,6 +19,22 @@ class ExpensesList extends StatelessWidget {
             onDismissed: (direction) {
               removeExpense(expenses[index]);
             },
+            background: Container(
+              alignment: Alignment.centerRight,
+              color: Theme.of(context).colorScheme.error.withOpacity(0.8),
+              // ? ==> opacity la lam trong suot cai container
+              margin: EdgeInsets.symmetric(
+                  horizontal: Theme.of(context).cardTheme.margin!.horizontal,
+                  vertical: 8),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Delete',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
             key: ValueKey(expenses[index]),
             child: ExpenseItem(expenses[index])));
   }

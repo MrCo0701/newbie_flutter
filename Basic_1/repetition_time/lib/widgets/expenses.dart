@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:repetition_time/widgets/chart/chart.dart';
 import 'package:repetition_time/widgets/expenses_list/expenses_list.dart';
 import 'package:repetition_time/widgets/new_expense.dart';
 
@@ -84,10 +85,12 @@ class _ExpensesState extends State<Expenses> {
               icon: const Icon(Icons.add))
         ],
         title: const Text('Flutter ExpenseTracker'),
-        backgroundColor: Colors.brown
       ),
       body: Column(
-        children: [const Text('The chart'), Expanded(child: mainContent)],
+        children: [
+          Chart(expenses: _registeredExpenses),
+          Expanded(child: mainContent)
+        ],
       ),
     );
   }
