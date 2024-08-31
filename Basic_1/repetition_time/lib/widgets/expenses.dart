@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:repetition_time/widgets/chart/chart.dart';
 import 'package:repetition_time/widgets/expenses_list/expenses_list.dart';
@@ -65,6 +66,8 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width; // ? ==> width of device
+
     Widget mainContent = const Center(
       child: Text('Don\'t have any thing in here'),
     );
@@ -86,12 +89,19 @@ class _ExpensesState extends State<Expenses> {
         ],
         title: const Text('Flutter ExpenseTracker'),
       ),
-      body: Column(
-        children: [
+      body: width < 600
+          ? Column(
+              children: [
           Chart(expenses: _registeredExpenses),
           Expanded(child: mainContent)
         ],
-      ),
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _registeredExpenses)),
+                Expanded(child: mainContent)
+              ],
+            ),
     );
   }
 }
