@@ -30,6 +30,7 @@ class _ExpensesState extends State<Expenses> {
   void _openExpenseOverlay() {
     showModalBottomSheet(
         context: context,
+        useSafeArea: true, // ? ==> cho cai bottomSheet nay tranh xa thanh phan cua thiet bi
         builder: (ctx) => NewExpense(
               onAddExpense: _addExpense,
             ),
