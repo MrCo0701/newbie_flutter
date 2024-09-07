@@ -23,7 +23,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: theme,
-        home: MealsScreen(title: 'Some categories ... ', meals: dummyMeals  ,)
+        home: const CategoriesScreen()
     );
   }
 }

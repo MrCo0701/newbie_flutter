@@ -6,6 +6,10 @@ import '../data/dummy_data.dart';
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
 
+  void _selectCategory(BuildContext context) {
+    // Navigator.of(context).push(MaterialPageRoute(builder: builder))
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
