@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_selectef/data/dummy_data.dart';
+import 'package:meal_selectef/providers/meals_provider.dart';
 import 'package:meal_selectef/screens/categories.dart';
 import 'package:meal_selectef/screens/filter.dart';
 import 'package:meal_selectef/screens/meals.dart';
@@ -14,16 +16,16 @@ const kInitialFilter = {
   Filter.vegan: false
 };
 
-class TabsScreen extends StatefulWidget {
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({
     super.key,
   });
 
   @override
-  State<TabsScreen> createState() => _TabsScreenState();
+  ConsumerState<TabsScreen> createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
 
   final List<Meal> _favoriteMeals = [];
@@ -58,23 +60,11 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  void _setScreen(String identifier) async {
-    Navigator.of(context).pop();
-    if (identifier == 'filter') {
-      final result = await Navigator.of(context).push<
-          Map<Filter,
-              bool>>(MaterialPageRoute(
-          builder: (cxt) =>
-              const FilterScreen())); // ? thay vi chong thi minh xoa man hinh truoc do luon
-
-      _selectFilter = result ??
-          kInitialFilter; // ? ==> neu = null thi tra ve kInitialFilter
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final availableMeals = dummyMeals.where((meal) {
+    final meals = ref.watch(mealsProvider);
+
+    final availableMeals = meals.where((meal) {
       if (_selectFilter[Filter.glutenFree]! && !meal.isGlutenFree) {
         return false;
       }
@@ -119,5 +109,19 @@ class _TabsScreenState extends State<TabsScreen> {
         ],
       ),
     );
+  }
+
+  void _setScreen(String identifier) async {
+    Navigator.of(context).pop();
+    if (identifier == 'filter') {
+      final result =
+          await Navigator.of(context).push<Map<Filter, bool>>(MaterialPageRoute(
+              builder: (cxt) => FilterScreen(
+                    currentFilters: _selectFilter,
+                  ))); // ? thay vi chong thi minh xoa man hinh truoc do luon
+
+      _selectFilter = result ??
+          kInitialFilter; // ? ==> neu = null thi tra ve kInitialFilter
+    }
   }
 }
